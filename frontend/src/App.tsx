@@ -1,7 +1,11 @@
+import Header from "./components/Header"
+
 function App() {
 
   return (
-    <h1 className="bg-red-50"> main </h1>
+    <div className="min-h-screen bg-gray-900">
+        <Header/>
+    </div>
   )
 }
 
