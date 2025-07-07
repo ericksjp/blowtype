@@ -1,1 +1,9 @@
 @import "tailwindcss";
+
+body {
+  background-color: #111111;
+}
+
+.text {
+  @apply m-0 text-base leading-6 tracking-wide flex justify-end text-center font-bold text-gray-300 min-w-[7rem] max-w-[7rem];
+}
