@@ -1,0 +1,18 @@
+.curr-letter {
+  text-decoration: underline;
+  text-decoration-color: black; /* Initial underline color */
+  animation: blink 1s infinite; /* Apply the blinking animation */
+}
+
+@keyframes slide {
+  0% {
+    width: 0; /* Start with no underline */
+  }
+  50% {
+    width: 100%; /* Expand underline fully */
+  }
+  100% {
+    width: 0; /* Shrink underline back */
+  }
+}
+
