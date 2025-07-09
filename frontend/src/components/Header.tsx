@@ -4,7 +4,7 @@ export default function Header() {
   return (
     <header className='bg-zinc-700 flex justify-between text-white p-3'>
         <div>
-            <NavLink to="#"
+            <NavLink to="/"
             className={({ isActive }) =>
               isActive ?'font-bold pl-9 0 hover:text-cyan-600' : 'text-gray-300'
             }

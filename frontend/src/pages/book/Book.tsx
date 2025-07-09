@@ -1,13 +1,15 @@
 import { Link, NavLink } from 'react-router';
 import imgBook from "../../assets/images/domCasmurro.jpeg";
+import Header from '../../components/Header';
 
 export default function Book() {
 
     return (
         <main>
+            <Header/>
             <div className='text-white mt-3'>
                 <span>
-                    <NavLink to="#"
+                    <NavLink to="/"
                         className={({ isActive }) =>
                             isActive ? 'pl-9 0 hover:text-emerald-600 font-base' : 'text-gray-300'
                         }
@@ -53,32 +55,32 @@ export default function Book() {
             </section>
             <section className='flex justify-center items-center mt-8 text-white'>
                 <div>
-                <Link to="#" className='bg-sky-900 w-197 flex justify-between pt-1.5 pb-1.5
+                <Link to="/typingConsole" className='bg-sky-900 w-197 flex justify-between pt-1.5 pb-1.5
                 rounded mb-4 hover:bg-sky-700'>
                     <div className='pl-8'>Chapter 1</div>
                     <div className='pr-8'>18 Pages</div>
                 </Link>
-                <Link to="#" className='bg-sky-900 w-197 flex justify-between pt-1.5 pb-1.5
+                <Link to="/typingConsole" className='bg-sky-900 w-197 flex justify-between pt-1.5 pb-1.5
                 rounded mb-4 hover:bg-sky-700 '>
                     <div className='pl-8'>Chapter 2</div>
                     <div className='pr-8'>19 Pages</div>
                 </Link> 
-                <Link to="#" className='bg-sky-900 w-197 flex justify-between pt-1.5 pb-1.5
+                <Link to="/typingConsole" className='bg-sky-900 w-197 flex justify-between pt-1.5 pb-1.5
                 rounded mb-4 hover:bg-sky-700 '>
                     <div className='pl-8'>Chapter 3</div>
                     <div className='pr-8'>18 Pages</div>
                 </Link> 
-                <Link to="#" className='bg-sky-900 w-197 flex justify-between pt-1.5 pb-1.5
+                <Link to="/typingConsole" className='bg-sky-900 w-197 flex justify-between pt-1.5 pb-1.5
                 rounded mb-4 hover:bg-sky-700 '>
                     <div className='pl-8'>Chapter 4</div>
                     <div className='pr-8'>18 Pages</div>
                 </Link> 
-                <Link to="#" className='bg-sky-900 w-197 flex justify-between pt-1.5 pb-1.5
+                <Link to="/typingConsole" className='bg-sky-900 w-197 flex justify-between pt-1.5 pb-1.5
                 rounded mb-4 hover:bg-sky-700 '>
                     <div className='pl-8'>Chapter 5</div>
                     <div className='pr-8'>18 Pages</div>
                 </Link> 
-                <Link to="#" className='bg-sky-900 w-197 flex justify-between pt-1.5 pb-1.5
+                <Link to="/typingConsole" className='bg-sky-900 w-197 flex justify-between pt-1.5 pb-1.5
                 rounded mb-4 hover:bg-sky-700 '>
                     <div className='pl-8'>Chapter 6</div>
                     <div className='pr-8'>18 Pages</div>
