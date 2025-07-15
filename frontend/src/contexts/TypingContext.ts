@@ -1,5 +1,6 @@
-import  { createContext, useContext } from "react";
+import  { createContext, useContext, useState } from "react";
 import type { TypingStateType } from "react-typing-game-hook";
+import type { Livro, Capitulo } from "../mock/BookMock";
 
 export interface TypingContextProps {
   text: string;
@@ -7,6 +8,10 @@ export interface TypingContextProps {
   accuracy: number;
   states: TypingStateType;
   handleKeyDown: (e: React.KeyboardEvent) => void;
+  selectedBook: Livro | null;
+  setSelectedBook: (book: Livro | null) => void;
+  selectedChapter: Capitulo | null;
+  setSelectedChapter: (chapter: Capitulo | null) => void;
 }
 
 export const TypingContext = createContext<TypingContextProps | undefined>(undefined);

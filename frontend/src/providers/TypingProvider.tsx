@@ -1,17 +1,25 @@
-import React, {  useEffect, useState } from "react";
-import { getWpmWorker, getPrecisionWorker } from "../workers"
-import type { CalculateWPMWorkerMessage } from "../workers/WpmWorker"
-import type { CalculatePrecisionWorkerMessage } from "../workers/PrecisionWorker"
+import React, { useEffect, useState, useRef } from "react";
+import { getWpmWorker, getPrecisionWorker } from "../workers";
+import type { CalculateWPMWorkerMessage } from "../workers/WpmWorker";
+import type { CalculatePrecisionWorkerMessage } from "../workers/PrecisionWorker";
 
 import { TypingContext } from "../contexts/TypingContext";
 import useTypingGame from "react-typing-game-hook";
+import type { Livro, Capitulo } from "../mock/BookMock";
 
-interface WorkerProviderProps {
+interface TypingProviderProps {
   children?: React.ReactNode;
-  text: string;
 }
 
-export default function TypingProvider({ children, text }: WorkerProviderProps) {
+function TypingLogicProvider({
+  children,
+  text,
+  typingKey,
+  selectedBook,
+  setSelectedBook,
+  selectedChapter,
+  setSelectedChapter,
+}: any) {
   const [wpm, setWpmData] = useState<number>(0);
   const [accuracy, setAccurracy] = useState<number>(0);
 
@@ -20,7 +28,7 @@ export default function TypingProvider({ children, text }: WorkerProviderProps) 
     actions: { insertTyping, resetTyping, deleteTyping, getDuration },
   } = useTypingGame(text, {
     skipCurrentWordOnSpace: false,
-    countErrors: "once"
+    countErrors: "once",
   });
 
   function handleKeyDown(e: React.KeyboardEvent) {
@@ -32,13 +40,13 @@ export default function TypingProvider({ children, text }: WorkerProviderProps) 
       return;
     }
     if (key === "Backspace") {
-      calculateWpm({good: states.correctChar, bad: states.errorChar, timePassedInMilliseconds: getDuration()});
+      calculateWpm({ good: states.correctChar, bad: states.errorChar, timePassedInMilliseconds: getDuration() });
       deleteTyping(false);
       return;
     }
     if (key.length === 1) {
-      calculateWpm({good: states.correctChar, bad: states.errorChar, timePassedInMilliseconds: getDuration()});
-      calculateAccuracy({good: states.correctChar, bad: states.errorChar});
+      calculateWpm({ good: states.correctChar, bad: states.errorChar, timePassedInMilliseconds: getDuration() });
+      calculateAccuracy({ good: states.correctChar, bad: states.errorChar });
       insertTyping(key);
     }
   }
@@ -65,9 +73,51 @@ export default function TypingProvider({ children, text }: WorkerProviderProps) 
   }
 
   return (
-    <TypingContext.Provider value={{wpm, accuracy, handleKeyDown, states, text}}>
-        {children}
+    <TypingContext.Provider
+      value={{
+        wpm,
+        accuracy,
+        handleKeyDown,
+        states,
+        text,
+        selectedBook,
+        setSelectedBook,
+        selectedChapter,
+        setSelectedChapter,
+      }}
+    >
+      {children}
     </TypingContext.Provider>
-  )
+  );
+}
+
+export default function TypingProvider({ children }: TypingProviderProps) {
+  const [selectedBook, setSelectedBook] = useState<Livro | null>(null);
+  const [selectedChapter, setSelectedChapter] = useState<Capitulo | null>(null);
+  const text = selectedChapter?.conteudo || "";
+
+  const [typingKey, setTypingKey] = useState(0);
+  const prevTextRef = useRef("");
+
+  useEffect(() => {
+    if (text !== prevTextRef.current) {
+      setTypingKey((k) => k + 1);
+      prevTextRef.current = text;
+    }
+  }, [text]);
+
+  return (
+    <TypingLogicProvider
+      key={typingKey}
+      text={text}
+      typingKey={typingKey}
+      selectedBook={selectedBook}
+      setSelectedBook={setSelectedBook}
+      selectedChapter={selectedChapter}
+      setSelectedChapter={setSelectedChapter}
+    >
+      {children}
+    </TypingLogicProvider>
+  );
 }
 

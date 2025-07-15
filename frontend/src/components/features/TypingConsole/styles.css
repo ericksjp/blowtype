@@ -1,18 +1,102 @@
-.curr-letter {
-  text-decoration: underline;
-  text-decoration-color: black; /* Initial underline color */
-  animation: blink 1s infinite; /* Apply the blinking animation */
+.typing-test {
+  font-feature-settings: "liga" 0;
+  text-rendering: optimizeLegibility;
+  font-variant-ligatures: none;
 }
 
-@keyframes slide {
-  0% {
-    width: 0; /* Start with no underline */
+.typing-cursor {
+  position: relative;
+}
+
+.typing-cursor::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #eab308;
+  animation: blink-cursor 1s infinite;
+}
+
+@keyframes blink-cursor {
+  0%, 50% {
+    opacity: 1;
   }
-  50% {
-    width: 100%; /* Expand underline fully */
+  51%, 100% {
+    opacity: 0;
   }
-  100% {
-    width: 0; /* Shrink underline back */
+}
+
+.typing-test span {
+  padding: 2px 1px;
+  border-radius: 2px;
+  transition: all 0.1s ease;
+}
+
+.typing-test span.text-red-400 {
+  background-color: rgba(239, 68, 68, 0.1);
+  border-bottom: 2px solid #ef4444;
+}
+
+.typing-test span.text-gray-300 {
+  background-color: rgba(34, 197, 94, 0.05);
+}
+
+.typing-test span.typing-cursor {
+  background-color: rgba(234, 179, 8, 0.2);
+  color: #ffffff !important;
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-in {
+  animation: slide-in 0.3s ease-out;
+}
+
+.progress-glow {
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.3);
+}
+
+.typing-test:focus {
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.3);
+}
+
+.typing-test {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.typing-test {
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.typing-test::-webkit-scrollbar {
+  width: 6px;
+}
+
+.typing-test::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.typing-test::-webkit-scrollbar-thumb {
+  background: rgba(107, 114, 128, 0.5);
+  border-radius: 3px;
+}
+
+.typing-test::-webkit-scrollbar-thumb:hover {
+  background: rgba(107, 114, 128, 0.7);
 }
 

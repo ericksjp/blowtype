@@ -1,9 +1,75 @@
 @import "tailwindcss";
 
-body {
-  background-color: #111111;
+* {
+  box-sizing: border-box;
 }
 
-.text {
-  @apply m-0 text-base leading-6 tracking-wide flex justify-end text-center font-bold text-gray-300 min-w-[7rem] max-w-[7rem];
+body {
+  background: #111111;
+  font-family: 'Inter', 'Segoe UI', 'System UI', -apple-system, sans-serif;
+  color: #e5e5e5;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #374151;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #6b7280;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+*:focus {
+  outline: 2px solid #10b981;
+  outline-offset: 2px;
+}
+
+kbd {
+  background-color: #374151;
+  border: 1px solid #4b5563;
+  border-radius: 4px;
+  color: #e5e7eb;
+  font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+  font-size: 0.875em;
+  padding: 0.25rem 0.5rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  transition: all 0.2s ease-in-out;
+}
+
+button:active {
+  transform: translateY(0);
 }
