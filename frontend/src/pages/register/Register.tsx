@@ -1,6 +1,7 @@
 import React, { useState} from 'react';
 import {toast} from "react-toastify";
 import {NavLink, useNavigate} from "react-router-dom";
+import Header from '../../components/Header';
 
 
 export default function Register() {
@@ -37,6 +38,7 @@ export default function Register() {
 
     return (
         <div className='flex justify-center items-center h-[100vh] min-h-screen bg-gray-900'>
+
             <div className='bg-transparent w-[19rem] pt-2 rounded pb-5 shadow-lg shadow-blue-700/50
         border-1 border-blue-400'>
                 <h1 className="text-6xl md:text-2xl font-bold mb-6 bg-gradient-to-r

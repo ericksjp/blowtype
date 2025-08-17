@@ -16,14 +16,12 @@ export default function Header() {
         <nav>
           <ul className="flex items-center space-x-6">
             <li>
-              <button className="text-gray-300 hover:text-white transition-colors">
-                Settings
-              </button>
-            </li>
-            <li>
-              <button className="bg-emerald-600 hover:bg-emerald-500 px-4 py-2 rounded-lg transition-colors font-medium">
+              {/* <button className="bg-emerald-600 hover:bg-emerald-500 px-4 py-2 rounded-lg transition-colors font-medium">
                 Profile
-              </button>
+              </button> */}
+              <NavLink className={({isActive})=>
+                  isActive ? "font-bold text-blue-400" : "text-white pt-2 pb-2 pl-3 pr-3 bg-emerald-400 rounded mr-3 hover:bg-emerald-600 "
+              } to="/auth/login">Sign in</NavLink>
             </li>
           </ul>
         </nav>
