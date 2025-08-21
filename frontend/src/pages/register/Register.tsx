@@ -1,7 +1,7 @@
 import React, { useState} from 'react';
 import {toast} from "react-toastify";
 import {NavLink, useNavigate} from "react-router-dom";
-import Header from '../../components/Header';
+// import Header from '../../components/Header';
 
 
 export default function Register() {

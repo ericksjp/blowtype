@@ -198,7 +198,7 @@ export const useTypingStore = create<TypingState>()(
             }
 
             // Mark chapter as complete if it's the last one
-            set((state) => ({
+            set(() => ({
                 isChapterComplete: true,
             }));
             return false;

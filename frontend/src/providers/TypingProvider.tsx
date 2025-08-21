@@ -14,7 +14,7 @@ interface TypingProviderProps {
 function TypingLogicProvider({
   children,
   text,
-  typingKey,
+  // typingKey,
   selectedBook,
   setSelectedBook,
   selectedChapter,
