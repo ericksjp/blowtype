@@ -7,20 +7,29 @@ describe("<Header/>", ()=>{
 
     test("Renderiza o nome da aplicação e verifica comportamento ao clicar", ()=>{
 
-        render(<Header/>, {wrapper: MemoryRouter});
+        render(
+            <MemoryRouter>
+                <Header/>
+            </MemoryRouter>
+        );
 
-        const link = screen.getByRole("link", {name: "Blowtype"});
+        const link = screen.getByRole("link", {name: /Blowtype/i});
         expect(link).toBeInTheDocument();
-        expect(link).toHaveAttribute("href", "/");
+        expect(link.getAttribute("href")).toBe("/");
 
     });
 
-    test("Renderiza os buttões Settings e Profile", ()=>{
+    test("Renderiza o button 'Sign In' ", ()=>{
         
-        render(<Header/>,{wrapper: MemoryRouter});
+        render(
+            <MemoryRouter>
+                <Header/>
+            </MemoryRouter>
+        );
 
-        expect(screen.getByRole("button", {name: "Settings"})).toBeInTheDocument();
-        expect(screen.getByRole("button", {name: "Profile"})).toBeInTheDocument();
+         const buttonSignIn = screen.getByRole('link', {name: /Sign in/i})
+         expect(buttonSignIn).toBeInTheDocument();
+         expect(buttonSignIn.getAttribute("href")).toBe("/auth/login");
     })
 
 })

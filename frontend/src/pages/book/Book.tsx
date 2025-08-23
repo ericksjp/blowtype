@@ -20,7 +20,7 @@ export default function Book() {
   );
   const stats = useTypingStore((state) => state.stats);
 
-  console.log("georgy porgy")
+  // console.log("georgy porgy")
   const {
     loadBooks,
     loadBookChapters,

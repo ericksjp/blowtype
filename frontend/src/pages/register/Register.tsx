@@ -38,7 +38,7 @@ export default function Register() {
                 <h1 className="text-6xl md:text-2xl font-bold mb-6 bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent text-center pt-2">
                     Blowtype
                 </h1>
-                <form onSubmit={handleSubmit} className='pt-3 pl-5'>
+                <form data-testid="register-form" onSubmit={handleSubmit} className='pt-3 pl-5'>
                     <label className='text-gray-400 font-bold' htmlFor="username">Username</label><br/>
                     <input 
                         className='bg-white outline-none text-black mt-2 pl-2 text-2xl w-65 h-9 text-[0.8rem] rounded-[2px] font-light' 

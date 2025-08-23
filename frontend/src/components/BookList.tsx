@@ -39,7 +39,7 @@ export default function BookList() {
                     </p>
                 </header>
                 <div className="flex justify-center items-center py-12">
-                    <div className="text-red-400">Error loading books: {error}</div>
+                    <div data-testid="book-error" className="text-red-400">Error loading books: {error}</div>
                 </div>
             </div>
         );

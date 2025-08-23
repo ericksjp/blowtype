@@ -35,7 +35,7 @@ export default function Login() {
           <input
             className="bg-white outline-none text-black mt-2 pl-2 text-2xl w-65 h-9 text-[0.8rem] rounded-[2px] font-light"
             type="email"
-            placeholder="Enter the e-mail"
+            placeholder="Enter your e-mail"
             onChange={(event) => setEmail(event.target.value)}
             value={email}
             disabled={isLoading}
