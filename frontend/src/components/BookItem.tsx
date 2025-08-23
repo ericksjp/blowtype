@@ -1,21 +1,24 @@
 import { useNavigate } from "react-router-dom";
-import type { Livro } from "../mock/BookMock";
+import type { Book } from "../services/api";
 import { useTypingStore } from "../store/typingStore";
+import { useBookStore } from "../store/bookStore";
 
 interface BookItemProps {
-    book: Livro;
+    book: Book;
 }
 
 export default function BookItem({ book }: BookItemProps) {
     const navigate = useNavigate();
     const setSelectedBook = useTypingStore((state) => state.setSelectedBook);
+    const setCurrentBook = useBookStore((state) => state.setCurrentBook);
     const getCompletionPercentage = useTypingStore(
         (state) => state.getCompletionPercentage
     );
 
     const handleClick = () => {
         setSelectedBook(book);
-        const bookId = book.titulo
+        setCurrentBook(book);
+        const bookId = book.title
             .toLowerCase()
             .replace(/\s+/g, "-")
             .replace(/[^\w-]/g, "");
@@ -33,16 +36,16 @@ export default function BookItem({ book }: BookItemProps) {
             <div className="relative w-full rounded-2xl bg-zinc-900 hover:bg-zinc-800 transition-all duration-300 p-6 flex flex-col justify-between">
                 <div>
                     <span className="text-white text-xl font-semibold block mb-1">
-                        {book.titulo}
+                        {book.title}
                     </span>
                     <span className="text-zinc-300 text-sm font-light block mb-2">
-                        {book.autor}
+                        {book.author}
                     </span>
                     <span className="text-zinc-400 text-xs font-normal block mb-2">
-                        {book.anoLancamento}
+                        {book.yearPublished}
                     </span>
                     <span className="text-zinc-400 text-xs font-normal block">
-                        {book.descricao.slice(0, 80)}...
+                        {book.description.slice(0, 80)}...
                     </span>
                 </div>
                 <div className="mt-3">

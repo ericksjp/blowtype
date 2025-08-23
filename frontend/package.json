@@ -23,7 +23,7 @@
         "react-toastify": "^11.0.5",
         "react-typing-game-hook": "^1.4.2",
         "tailwindcss": "^4.1.11",
-        "zustand": "^5.0.6"
+        "zustand": "^5.0.8"
     },
     "devDependencies": {
         "@eslint/js": "^9.29.0",

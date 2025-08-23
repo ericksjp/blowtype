@@ -3,18 +3,22 @@ import { CharStateType } from "react-typing-game-hook";
 import useTypingGame from "react-typing-game-hook";
 import "./styles.css";
 import { useTypingStore } from "../../../store/typingStore";
+import { useAuthStore } from "../../../store/authStore";
 
 function TypingBox() {
     const currentText = useTypingStore((state) => state.currentText);
     const selectedBook = useTypingStore((state) => state.selectedBook);
     const selectedChapter = useTypingStore((state) => state.selectedChapter);
-    const currentPageIndex = useTypingStore((state) => state.currentPageIndex);
+    const currentPageNumber = useTypingStore((state) => state.currentPageNumber);
     const updateStats = useTypingStore((state) => state.updateStats);
     const completeCurrentPage = useTypingStore(
         (state) => state.completeCurrentPage
     );
     const goToNextPage = useTypingStore((state) => state.goToNextPage);
     const getTotalPages = useTypingStore((state) => state.getTotalPages);
+    const submitTypingResultToStore = useTypingStore((state) => state.submitTypingResult);
+    
+    const { user } = useAuthStore();
 
     const [finished, setFinished] = useState(false);
     const [wpm, setWpm] = useState(0);
@@ -28,6 +32,22 @@ function TypingBox() {
         skipCurrentWordOnSpace: false,
         countErrors: "once",
     });
+
+    const submitTypingResult = async () => {
+        if (!user || !selectedBook || !selectedChapter) return;
+
+        try {
+            await submitTypingResultToStore(
+                wpm,
+                accuracy,
+                getDuration(),
+                states.errorChar
+            );
+        } catch (error) {
+            console.error('Failed to submit typing result:', error);
+            // Don't show error to user as it's not critical for the typing experience
+        }
+    };
 
     useEffect(() => {
         const duration = getDuration();
@@ -60,9 +80,7 @@ function TypingBox() {
         boxRef.current?.focus();
         resetTyping();
         setFinished(false);
-    }, [currentText, resetTyping]);
-
-    useEffect(() => {
+    }, [currentText, resetTyping]);    useEffect(() => {
         if (!selectedBook || !selectedChapter) return;
 
         if (
@@ -72,10 +90,12 @@ function TypingBox() {
         ) {
             setFinished(true);
             completeCurrentPage();
+            
+            submitTypingResult();
 
             const timer = setTimeout(() => {
                 const totalPages = getTotalPages();
-                if (currentPageIndex < totalPages - 1) {
+                if (currentPageNumber < totalPages) {
                     goToNextPage();
                     setFinished(false);
                 } else {
@@ -89,16 +109,12 @@ function TypingBox() {
 
             return () => clearTimeout(timer);
         }
-
-        if (states.currIndex < currentText.length - 1 && finished) {
-            setFinished(false);
-        }
     }, [
         states.currIndex,
         currentText.length,
         selectedBook,
         selectedChapter,
-        currentPageIndex,
+        currentPageNumber,
         completeCurrentPage,
         goToNextPage,
         getTotalPages,
@@ -142,10 +158,18 @@ function TypingBox() {
                 <div className="text-gray-400 text-xl">Loading text...</div>
             </div>
         );
-    }
-
-    return (
+    }    return (
         <div className="max-w-4xl mx-auto px-6 py-8">
+            {/* Guest Mode Indicator */}
+            {!user && (
+                <div className="mb-4 p-3 bg-yellow-400/10 border border-yellow-400/30 rounded-lg">
+                    <div className="flex items-center space-x-2 text-yellow-400 text-sm">
+                        <span>👤</span>
+                        <span>Guest Mode: Your progress won't be saved. <a href="/auth/login" className="underline hover:text-yellow-300">Sign in</a> to track your statistics.</span>
+                    </div>
+                </div>
+            )}
+
             {/* Top Stats Bar - typelit.io style */}
             <div className="flex justify-between items-center mb-8 text-sm">
                 <div className="flex space-x-6">
@@ -196,10 +220,9 @@ function TypingBox() {
                     style={{ lineHeight: "1.5" }}
                 >
                     {currentText
-                        .split("")
-                        .map((char: string, index: number) => {
+                        .split("")                        .map((char: string, index: number) => {
                             const state = states.charsState[index];
-                            const isCurrent = states.currIndex === index - 1;
+                            const isCurrent = states.currIndex === index;
 
                             let className =
                                 "relative transition-all duration-150 ";

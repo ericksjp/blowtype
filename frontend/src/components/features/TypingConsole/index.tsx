@@ -5,7 +5,7 @@ import TypingStats from "./TypingStats";
 import TypingBox from "./TypingBox";
 import Header from "../../Header";
 import { useTypingStore } from "../../../store/typingStore";
-import { books } from "../../../mock/BookMock";
+import { useBookStore } from "../../../store/bookStore";
 
 function TypingConsole() {
   const { bookId, pageId } = useParams<{ bookId: string; pageId: string }>();
@@ -13,7 +13,7 @@ function TypingConsole() {
   
   const selectedBook = useTypingStore((state) => state.selectedBook);
   const selectedChapter = useTypingStore((state) => state.selectedChapter);
-  const currentPageIndex = useTypingStore((state) => state.currentPageIndex);
+  const currentPageNumber = useTypingStore((state) => state.currentPageNumber);
   const setSelectedBook = useTypingStore((state) => state.setSelectedBook);
   const setSelectedChapter = useTypingStore((state) => state.setSelectedChapter);
   const goToPreviousPage = useTypingStore((state) => state.goToPreviousPage);
@@ -21,38 +21,69 @@ function TypingConsole() {
   const resetTypingSession = useTypingStore((state) => state.resetTypingSession);
   const getTotalPages = useTypingStore((state) => state.getTotalPages);
 
-  useEffect(() => {
-    if (bookId && pageId) {
-      if (!selectedBook) {
-        const book = books.find(b => 
-          b.titulo.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '') === bookId
-        );
-        if (book) {
-          setSelectedBook(book);
+  const { 
+    loadBooks, 
+    loadChapterById, 
+    loadBookChapters,
+    setCurrentBook,
+    setCurrentChapter 
+  } = useBookStore();  useEffect(() => {
+    const initializeChapter = async () => {
+      if (!bookId || !pageId) return;
+
+      try {
+        let currentBook = selectedBook;
+        
+        if (!currentBook) {
+          await loadBooks();
+          const books = useBookStore.getState().books;
+          const foundBook = books.find((b) =>
+            b.title
+              .toLowerCase()
+              .replace(/\s+/g, "-")
+              .replace(/[^\w-]/g, "") === bookId
+          );
+          
+          if (foundBook) {
+            currentBook = foundBook;
+            setSelectedBook(foundBook);
+            setCurrentBook(foundBook);
+          } else {
+            console.error('Book not found');
+            return;
+          }
         }
-      }
-      
-      if (selectedBook && !selectedChapter) {
-        const chapter = selectedBook.capitulos.find(c => c.id.toString() === pageId);
+
+        const chapterId = parseInt(pageId);
+        const chapter = await loadChapterById(currentBook.id, chapterId);
+        
         if (chapter) {
           setSelectedChapter(chapter);
+          setCurrentChapter(chapter);
+        } else {
+          console.error('Chapter not found');
         }
+      } catch (error) {
+        console.error('Error initializing chapter:', error);
       }
-    }
-  }, [bookId, pageId, selectedBook, selectedChapter, setSelectedBook, setSelectedChapter]);
+    };
+
+    initializeChapter();
+  }, [bookId, pageId]); // Simplified dependencies
 
   const handleBackToChapters = () => {
     navigate(`/home/${bookId}`);
   };
 
-  const handlePreviousPage = () => {
-    if (!goToPreviousPage()) {
+  const handlePreviousPage = async () => {
+    const result = await goToPreviousPage();
+    if (!result) {
       handleBackToChapters();
     }
   };
-
-  const handleNextPage = () => {
-    if (!goToNextPage()) {
+  const handleNextPage = async () => {
+    const result = await goToNextPage();
+    if (!result) {
       handleBackToChapters();
     }
   };
@@ -102,20 +133,18 @@ function TypingConsole() {
                 </svg>
                 <span>Restart</span>
               </button>
-              
-              <div className="flex items-center space-x-2 text-sm text-gray-500">
+                <div className="flex items-center space-x-2 text-sm text-gray-500">
                 <button
                   onClick={handlePreviousPage}
-                  disabled={currentPageIndex === 0}
+                  disabled={currentPageNumber === 1}
                   className="p-1 text-gray-400 hover:text-white disabled:text-gray-600 disabled:cursor-not-allowed transition-colors"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                   </svg>
                 </button>
-                
-                <span className="px-2 py-1 bg-gray-800 rounded text-xs font-mono">
-                  {currentPageIndex} / {totalPages}
+                  <span className="px-2 py-1 bg-gray-800 rounded text-xs font-mono">
+                  {currentPageNumber} / {totalPages}
                 </span>
                 
                 <button

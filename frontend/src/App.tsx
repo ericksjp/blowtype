@@ -1,5 +1,3 @@
-// import Login from "./pages/login/Login";
-// import Register from "./pages/register/Register";
 import Router from "./routes/Router";
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
