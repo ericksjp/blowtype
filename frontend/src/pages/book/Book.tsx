@@ -136,6 +136,7 @@ export default function Book() {
           <NavLink
             to="/"
             className="text-emerald-400 hover:text-emerald-300 transition-colors"
+            data-cy="back-to-books"
           >
             Books
           </NavLink>
@@ -149,7 +150,7 @@ export default function Book() {
             <h1 className="text-4xl font-bold text-white mb-2">
               {selectedBook.title}
             </h1>
-            <h2 className="text-2xl text-emerald-400 mb-4">
+            <h2 data-cy="book-author" className="text-2xl text-emerald-400 mb-4">
               {selectedBook.author}
             </h2>
             <p className="text-gray-300 mb-6 leading-relaxed">
