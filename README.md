@@ -1,45 +1,43 @@
-<h1 align="center">Sistema Web para Aperfeiçoamento das Habilidades de Digitação</h1>
-<div>
- <h2>Descrição do Projeto</h2>
- <p>
-   Projeto desenvolvido para disciplina de Programação para Web 2 do curso de Análise e Desenvolvimento de Sistemas do Instituto Federal de Educação, Ciência e Tecnologia da Paraíba Campus Cajazeiras. Trata-se de uma aplicação web voltada para o aperfeiçoamento das habilidades de digitação, oferecendo feedback em tempo real sobre o desempenho do usuário, como WPM (palavras digitadas por minuto), Accuracy (porcentagem de acertos) e progresso de evolução na prática.
- </p>
- <h2>Status do Projeto</h2>
- <p>
-   <img loading="lazy" src="http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge"/>
-</p>
+<h1 align="center">Blowtype: Sistema Web para Aperfeiçoamento das Habilidades de Digitação</h1>
 
- <h2>:man_mechanic: Linguagens e Ferramentas Utilizadas</h2>
+## Descrição do Projeto
 
--   `React`
--   `Vite`
--   `TypeScript`
--   `Vitest`
--   `Playwright`
--   `Vs code`
--   `GitHub`
--   `Git`
-<h2>:hammer: Funcionalidades do projeto</h2>
+Blowtype é uma aplicação web desenvolvida para a disciplina de Programação para Web 2 do curso de Análise e Desenvolvimento de Sistemas do Instituto Federal de Educação, Ciência e Tecnologia da Paraíba - Campus Cajazeiras. O sistema tem como objetivo ajudar usuários a aprimorar suas habilidades de digitação, oferecendo feedback em tempo real sobre desempenho, como WPM (palavras por minuto), acurácia e progresso geral.
 
--   `Funcionalidade 1`: Selecionar livro para treino.
--   `Funcionalidade 2`: Selecionar capítulo.
--   `Funcionalidade 3`: Praticar digitação por páginas.
--   `Funcionalidade 4`: Exibir WPM e Accuracy.
--   `Funcionalidade 5`: Mostrar progresso do usuário.
+## Status do Projeto
 
-<h2>:rocket: Instruções para Rodar o Projeto</h2>
+<img src="http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge"/>
 
-### 1️⃣ Verifique se o Node.js está instalado:
+## :man_technologist: Tecnologias Utilizadas
 
-```bash
-node -v
-npm -v
-```
+- React
+- Vite
+- TypeScript
+- Vitest
+- Cypress
+- Playwright
+- Node.js
+- Express
+- SQLite
+- VS Code
+- Git & GitHub
 
-Caso não tenha o Node.js instalado, baixe em:
-👉 https://nodejs.org
+## :hammer: Funcionalidades
 
-### 1️⃣ Clone este repositório:
+- Seleção de livros para treino de digitação
+- Escolha de capítulos para praticar
+- Digitação por páginas com textos reais
+- Exibição de métricas: WPM, acurácia e progresso
+- Histórico de evolução do usuário
+
+## :rocket: Como Rodar o Projeto
+
+### 1️⃣ Pré-requisitos
+
+- Node.js instalado ([Download](https://nodejs.org))
+- Git instalado
+
+### 2️⃣ Clone o repositório
 
 ```bash
 git clone git@github.com:ericksjp/blowtype.git
@@ -47,109 +45,117 @@ cd blowtype
 git fetch origin
 git checkout dev
 git pull
-cd frontend
 ```
 
-### 2️⃣ Instale as dependências:
+### 3️⃣ Instale as dependências do frontend
 
 ```bash
-npm i
+cd frontend
+npm install
 ```
 
-### 3️⃣ Execute o projeto:
+### 4️⃣ Instale as dependências do backend
+
+```bash
+cd ../backend
+npm install
+```
+> ⚠️ **Atenção:** O backend deste projeto só está rodando corretamente com o **Node.js versão 20**.  
+> Recomenda-se instalar ou utilizar o Node 20 para evitar incompatibilidades.
+
+### 5️⃣ Configure variáveis de ambiente
+
+Copie os arquivos `.env.example` para `.env` tanto no frontend quanto no backend e ajuste conforme necessário.
+
+### 6️⃣ Execute o backend
 
 ```bash
 npm run dev
 ```
+> O backend será iniciado em modo de desenvolvimento.
 
-## Testes
+### 7️⃣ Execute o frontend
 
-Este projeto utiliza dois tipos de testes:
+Abra outro terminal e execute:
 
--   ✅ **Testes unitários** com [Vitest](https://vitest.dev)
--   🧪 **Testes end-to-end (E2E)** com [Cypress](https://www.cypress.io)
+```bash
+cd frontend
+npm run dev
+```
+> O frontend estará disponível em `http://localhost:5173`
 
 ---
 
-### ⚙️ Scripts disponíveis
+## :test_tube: Testes
 
-```bash
-# Rodar testes unitários com Vitest
-npm run test
+O projeto possui testes unitários e end-to-end:
 
-# Abrir o Cypress em modo interativo
-npm run cypress
-
-# Executar os testes E2E do Cypress em modo headless
-npm run cypress:run
-```
-
-### ✅ Testes unitários com Vitest
-
-Para executar os testes unitários:
+### ✅ Testes unitários (Vitest)
 
 ```bash
 npm run test
 ```
 
-### 🧪 Testes end-to-end com Cypress
+### 🧪 Testes end-to-end (Cypress)
 
-#### 📌 Pré-requisitos
+Antes de rodar os testes E2E, certifique-se que o frontend está rodando.
 
-Antes de executar o Cypress, é necessário iniciar o servidor de desenvolvimento:
-
-```bash
-npm run dev
-```
-
-> Deixe esse comando rodando em um terminal separado.
-
-#### 🖥️ Modo interativo
+#### Modo interativo
 
 ```bash
 npm run cypress
 ```
 
-Isso abrirá a interface gráfica do Cypress.
-
-#### ⚙️ Modo headless (linha de comando)
+#### Modo headless
 
 ```bash
 npm run cypress:run
 ```
 
-<h2> :technologist:  Autores</h2>
- <table >
- <tbody>
-   <tr>
-     <td align="center" valign="top" width="35%">
-       <a href="https://github.com/ericksjp">
-         <img src="https://avatars.githubusercontent.com/u/126838970?v=4" width="60px;" alt="Erick"/>
-         <br/>
-         <sub>
-           <b>Erick Ribeiro de Sousa</b>
-         </sub>
-       </a>
-     </td>
-     <td align="center" valign="top" width="35%" >
-       <a href="https://github.com/tassomoreira">
-         <img src="https://avatars.githubusercontent.com/u/99520151?v=4" width="60px;" alt="Tasso"/>
-         <br/>
-         <sub>
-           <b>Tasso Moreira de Oliveira</b>
-         </sub>
-       </a>
-     </td>
-       <td align="center" valign="top" width="35%">
-       <a href="https://github.com/GerlandioBernardo">
-         <img src="https://avatars.githubusercontent.com/u/126838970?v=4" width="60px;" alt="Gerlandio" />
-         <br/>
-         <sub>
-           <b>Gerlândio da Silva Bernardo</b>
-         </sub>
-       </a>
-     </td>
-   </tr>
- </tbody>
+---
+
+## Estrutura de Pastas
+
+```
+blowtype/
+├── backend/
+│   ├── src/
+│   ├── package.json
+│   └── ...
+├── frontend/
+│   ├── src/
+│   ├── cypress/
+│   ├── package.json
+│   └── ...
+└── README.md
+```
+
+---
+
+## :busts_in_silhouette: Autores
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/ericksjp">
+        <img src="https://avatars.githubusercontent.com/u/126838970?v=4" width="60px;" alt="Erick"/>
+        <br/>
+        <sub><b>Erick Ribeiro de Sousa</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/tassomoreira">
+        <img src="https://avatars.githubusercontent.com/u/99520151?v=4" width="60px;" alt="Tasso"/>
+        <br/>
+        <sub><b>Tasso Moreira de Oliveira</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/GerlandioBernardo">
+        <img src="https://avatars.githubusercontent.com/u/126838970?v=4" width="60px;" alt="Gerlandio" />
+        <br/>
+        <sub><b>Gerlândio da Silva Bernardo</b></sub>
+      </a>
+    </td>
+  </tr>
 </table>
-</div>
